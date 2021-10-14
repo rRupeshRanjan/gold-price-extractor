@@ -4,6 +4,7 @@ import com.learning.scrapper.domain.CurrentPrice;
 import com.learning.scrapper.domain.Price;
 import com.learning.scrapper.service.PriceService;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -34,12 +35,12 @@ public class PriceController {
         return priceService.getCurrentPrice();
     }
     
-    @GetMapping("/save-historical-prices")
+    @PostMapping("/save-historical-prices")
     public void savePrices() throws IOException {
         priceService.saveHistoricalPrices();
     }
 
-    @GetMapping("/save-yday-price")
+    @PostMapping("/save-yday-price")
     public void saveYdayPrice() throws IOException {
         priceService.saveYdayPrice();
     }
