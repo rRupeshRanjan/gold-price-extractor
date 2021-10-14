@@ -1,0 +1,29 @@
+plugins {
+    id 'java'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.0'
+    annotationProcessor 'org.projectlombok:lombok:1.18.22'
+    compileOnly 'org.projectlombok:lombok:1.18.22'
+
+    implementation 'org.jsoup:jsoup:1.14.3'
+
+    implementation 'javax.xml.bind:jaxb-api:2.3.0'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.5.5'
+    runtimeOnly 'mysql:mysql-connector-java:8.0.25'
+
+    implementation 'org.springframework.boot:spring-boot-starter-web:2.5.5'
+    implementation 'org.springframework.boot:spring-boot-starter-webflux:2.5.5'
+}
+
+test {
+    useJUnitPlatform()
+}

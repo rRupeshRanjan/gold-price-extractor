@@ -1,0 +1,8 @@
+price.url: "https://gadgets.ndtv.com/finance/digital-gold-price-in-india"
+date.pattern: "dd MMMM yyyy"
+
+spring.jpa.hibernate.ddl-auto: update
+spring.datasource.url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/digital_gold_prices
+spring.datasource.username: root
+spring.datasource.password: password
+spring.datasource.driver-class-name: com.mysql.cj.jdbc.Driver
