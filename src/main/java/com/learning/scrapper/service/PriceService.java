@@ -3,12 +3,14 @@ package com.learning.scrapper.service;
 import com.learning.scrapper.domain.CurrentPrice;
 import com.learning.scrapper.domain.Price;
 import com.learning.scrapper.repository.PriceRepository;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 
+@Log4j2
 @Service
 public class PriceService {
 
@@ -24,11 +26,15 @@ public class PriceService {
 
     public Price getYdayPrice() {
         String previousDate = LocalDate.now().minusDays(1).toString();
+        log.info("Fetching prices for yesterday: {}", previousDate);
+
         return priceRepository.getSavedPriceByDate(previousDate);
     }
 
     public CurrentPrice getCurrentPrice() throws IOException {
         long currentTime = System.currentTimeMillis();
+
+        log.info("Fetching today's prices at timestamp: {}", currentTime);
         double currentPrice = priceRepository.getCurrentPrice();
 
         return CurrentPrice.builder()
@@ -38,11 +44,15 @@ public class PriceService {
     }
 
     public void saveHistoricalPrices() throws IOException {
+        log.info("Saving historical prices for last 30 days");
+
         priceRepository.saveHistoricalPrices();
     }
 
     public void saveYdayPrice() throws IOException {
         String previousDate = LocalDate.now().minusDays(1).toString();
+        log.info("Saving price for yesterday: {}", previousDate);
+
         priceRepository.savePriceByDate(previousDate);
     }
 }

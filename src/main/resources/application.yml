@@ -1,8 +1,27 @@
 price.url: "https://gadgets.ndtv.com/finance/digital-gold-price-in-india"
 date.pattern: "dd MMMM yyyy"
 
-spring.jpa.hibernate.ddl-auto: update
-spring.datasource.url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/digital_gold_prices
-spring.datasource.username: root
-spring.datasource.password: password
-spring.datasource.driver-class-name: com.mysql.cj.jdbc.Driver
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+  datasource:
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/digital_gold_prices
+    username: root
+    password: password
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+server:
+  tomcat:
+    accesslog:
+      enabled: true
+      suffix: .log
+      prefix: access_log_
+      file-date-format: yyyy-MM-dd
+      directory: C:/Users/Rupesh/Desktop/workspace/java/gold-price-extractor/logs
+
+logging:
+  level:
+    org.springframework: info
+    org.springframework.web: info
+  file.name: C:/Users/Rupesh/Desktop/workspace/java/gold-price-extractor/logs/application.log

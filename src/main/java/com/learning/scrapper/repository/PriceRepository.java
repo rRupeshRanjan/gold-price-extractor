@@ -2,6 +2,7 @@ package com.learning.scrapper.repository;
 
 import com.learning.scrapper.config.AppConfig;
 import com.learning.scrapper.domain.Price;
+import lombok.extern.log4j.Log4j2;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -16,8 +17,10 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
+@Log4j2
 @Repository
 public class PriceRepository {
+
     private final String priceUrl;
     private final SqlRepository sqlRepository;
     private final DateTimeFormatter dateTimeFormatter;
@@ -38,6 +41,8 @@ public class PriceRepository {
     }
 
     public double getCurrentPrice() throws IOException {
+        log.info("Fetching realtime current price");
+
         Document document = Jsoup.connect(priceUrl).get();
         Element element = document.select("._gdtpw ._flx").get(0);
         String currentPrice = element.select("._gdprc").get(0).getElementsByTag("span").get(0).text();
@@ -48,6 +53,8 @@ public class PriceRepository {
     }
 
     public List<Price> getSavedHistoricalPrices() {
+        log.info("Fetching saved historical prices");
+
         return StreamSupport
                 .stream(sqlRepository.findAll().spliterator(), true)
                 .collect(Collectors.toList());
@@ -58,6 +65,8 @@ public class PriceRepository {
     }
 
     public List<Price> getHistoricalPrices() throws IOException {
+        log.info("Fetching last 30 days prices in realtime");
+
         return getPriceRows()
                 .stream()
                 .map(row -> row.getElementsByTag("td")
@@ -76,10 +85,17 @@ public class PriceRepository {
     }
 
     public void saveHistoricalPrices() throws IOException {
+        log.info("Saving prices for last 30 days");
         sqlRepository.saveAll(getHistoricalPrices());
     }
 
     public void savePriceByDate(String date) throws IOException {
-        getPriceByDate(date).ifPresent(sqlRepository::save);
+        getPriceByDate(date)
+                .ifPresentOrElse(
+                        price -> {
+                            log.info("Saving price for date: {}", date);
+                            sqlRepository.save(price);
+                        },
+                        () -> log.info("No prices found for date: {}", date));
     }
 }
