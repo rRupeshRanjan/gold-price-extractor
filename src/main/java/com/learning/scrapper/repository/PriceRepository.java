@@ -71,7 +71,7 @@ public class PriceRepository {
     public Optional<Price> getPriceByDate(String date) throws IOException {
         return getHistoricalPrices()
                 .stream()
-                .filter(price -> dateTimeFormatter.format(price.getDate()).equals(date))
+                .filter(price -> price.getDate().toString().equals(date))
                 .findFirst();
     }
 
