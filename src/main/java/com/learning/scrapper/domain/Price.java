@@ -1,6 +1,5 @@
 package com.learning.scrapper.domain;
 
-import com.learning.scrapper.config.AppConfig;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

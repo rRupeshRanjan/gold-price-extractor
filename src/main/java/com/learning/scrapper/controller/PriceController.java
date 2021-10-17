@@ -34,7 +34,7 @@ public class PriceController {
     public CurrentPrice getCurrentPrice() throws IOException {
         return priceService.getCurrentPrice();
     }
-    
+
     @PostMapping("/save-historical-prices")
     public void savePrices() throws IOException {
         priceService.saveHistoricalPrices();
