@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -52,11 +53,12 @@ public class PriceRepository {
                         .replaceAll(",", ""));
     }
 
-    public List<Price> getSavedHistoricalPrices() {
+    public List<Price> getSavedHistoricalPrices(int size) {
         log.info("Fetching saved historical prices");
 
         return StreamSupport
-                .stream(sqlRepository.findAll().spliterator(), true)
+                .stream(sqlRepository.getHistoricalPrices(size).spliterator(), true)
+                .sorted(Comparator.comparing(Price::getDate))
                 .collect(Collectors.toList());
     }
 

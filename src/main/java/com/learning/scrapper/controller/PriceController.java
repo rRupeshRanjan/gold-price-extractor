@@ -3,10 +3,7 @@ package com.learning.scrapper.controller;
 import com.learning.scrapper.domain.CurrentPrice;
 import com.learning.scrapper.domain.Price;
 import com.learning.scrapper.service.PriceService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.List;
@@ -21,8 +18,8 @@ public class PriceController {
     }
 
     @GetMapping("/get-historical-prices")
-    public List<Price> getPrices() {
-        return priceService.getHistoricalPrices();
+    public List<Price> getPrices(@RequestParam(defaultValue = "30") int size) {
+        return priceService.getHistoricalPrices(size);
     }
 
     @GetMapping("/get-yday-price")

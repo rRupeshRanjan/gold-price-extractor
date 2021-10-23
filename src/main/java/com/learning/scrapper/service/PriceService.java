@@ -20,8 +20,8 @@ public class PriceService {
         this.priceRepository = priceRepository;
     }
 
-    public List<Price> getHistoricalPrices() {
-        return priceRepository.getSavedHistoricalPrices();
+    public List<Price> getHistoricalPrices(int size) {
+        return priceRepository.getSavedHistoricalPrices(size);
     }
 
     public Price getYdayPrice() {
