@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Log4j2
 @Service
@@ -24,7 +25,7 @@ public class PriceService {
         return priceRepository.getSavedHistoricalPrices(size);
     }
 
-    public Price getYdayPrice() {
+    public Optional<Price> getYdayPrice() {
         String previousDate = LocalDate.now().minusDays(1).toString();
         log.info("Fetching prices for yesterday: {}", previousDate);
 
@@ -54,5 +55,9 @@ public class PriceService {
         log.info("Saving price for yesterday: {}", previousDate);
 
         priceRepository.savePriceByDate(previousDate);
+    }
+
+    public Optional<Price> getPriceForDate(String date) {
+        return priceRepository.getSavedPriceByDate(date);
     }
 }

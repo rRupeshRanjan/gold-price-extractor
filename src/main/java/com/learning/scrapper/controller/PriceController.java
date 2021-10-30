@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("digital-gold-prices")
@@ -23,7 +24,7 @@ public class PriceController {
     }
 
     @GetMapping("/get-yday-price")
-    public Price getYdayPrice() {
+    public Optional<Price> getYdayPrice() {
         return priceService.getYdayPrice();
     }
 

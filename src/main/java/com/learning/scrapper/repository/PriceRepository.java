@@ -62,7 +62,7 @@ public class PriceRepository {
                 .collect(Collectors.toList());
     }
 
-    public Price getSavedPriceByDate(String date) {
+    public Optional<Price> getSavedPriceByDate(String date) {
         return sqlRepository.getPriceByDate(date);
     }
 
