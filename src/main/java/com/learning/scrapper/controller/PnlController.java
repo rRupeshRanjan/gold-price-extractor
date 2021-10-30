@@ -1,6 +1,6 @@
 package com.learning.scrapper.controller;
 
-import com.learning.scrapper.service.PnLService;
+import com.learning.scrapper.service.PnlService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,11 +9,11 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("pnl")
-public class PnLController {
+public class PnlController {
 
-    private final PnLService pnlService;
+    private final PnlService pnlService;
 
-    public PnLController(PnLService pnlService) {
+    public PnlController(PnlService pnlService) {
         this.pnlService = pnlService;
     }
 

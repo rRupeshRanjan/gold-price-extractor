@@ -10,12 +10,12 @@ import java.util.Optional;
 
 @Log4j2
 @Service
-public class PnLService {
+public class PnlService {
 
     private final PriceService priceService;
     private final double taxFactor;
 
-    public PnLService(PriceService priceService) {
+    public PnlService(PriceService priceService) {
         this.priceService = priceService;
         this.taxFactor = 1.03;
     }
