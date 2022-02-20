@@ -17,6 +17,9 @@ public class AppConfig {
     @Value("${price.url}")
     private String priceUrl;
 
+    @Value("${tax.percentage}")
+    private double taxPercentage;
+
     @Bean
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {

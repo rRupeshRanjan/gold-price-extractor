@@ -1,5 +1,6 @@
 package com.learning.scrapper.service;
 
+import com.learning.scrapper.config.AppConfig;
 import com.learning.scrapper.domain.Price;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
@@ -12,12 +13,13 @@ import java.util.Optional;
 @Service
 public class PnlService {
 
+    private static final double PERCENTAGE = 100.0;
     private final PriceService priceService;
     private final double taxFactor;
 
-    public PnlService(PriceService priceService) {
+    public PnlService(PriceService priceService, AppConfig appConfig) {
         this.priceService = priceService;
-        this.taxFactor = 1.03;
+        this.taxFactor = 1 + (appConfig.getTaxPercentage() / PERCENTAGE);
     }
 
     public Map<String, Object> getPnl(String buyDate, String sellDate) {
@@ -37,13 +39,13 @@ public class PnlService {
         }
     }
 
-    private Map<String, Object> handleMissingDates(String date) {
+    protected Map<String, Object> handleMissingDates(String date) {
         String message = "price not available for date " + date;
         log.info(message);
         return Map.of("Error", message);
     }
 
-    private boolean isBuyDateAfterSellDate(String buyDate, String sellDate) {
+    protected boolean isBuyDateAfterSellDate(String buyDate, String sellDate) {
         return LocalDate.parse(buyDate).isAfter(LocalDate.parse(sellDate));
     }
 }

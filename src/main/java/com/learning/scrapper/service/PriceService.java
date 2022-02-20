@@ -27,8 +27,8 @@ public class PriceService {
 
     public Optional<Price> getYdayPrice() {
         String previousDate = LocalDate.now().minusDays(1).toString();
-        log.info("Fetching prices for yesterday: {}", previousDate);
 
+        log.info("Fetching prices for yesterday: {}", previousDate);
         return priceRepository.getSavedPriceByDate(previousDate);
     }
 
@@ -46,14 +46,13 @@ public class PriceService {
 
     public void saveHistoricalPrices() throws IOException {
         log.info("Saving historical prices for last 30 days");
-
         priceRepository.saveHistoricalPrices();
     }
 
     public void saveYdayPrice() throws IOException {
         String previousDate = LocalDate.now().minusDays(1).toString();
-        log.info("Saving price for yesterday: {}", previousDate);
 
+        log.info("Saving price for yesterday: {}", previousDate);
         priceRepository.savePriceByDate(previousDate);
     }
 
