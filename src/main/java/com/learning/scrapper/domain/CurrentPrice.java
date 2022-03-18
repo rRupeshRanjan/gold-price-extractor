@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CurrentPrice {
-    private double price;
+    private String price;
     private long timestamp;
 }

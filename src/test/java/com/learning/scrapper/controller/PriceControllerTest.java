@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.Collections;
-import java.util.Optional;
 
 import static org.mockito.Mockito.*;
 
@@ -31,14 +30,6 @@ class PriceControllerTest {
     }
 
     @Test
-    public void shouldCallGetYdayPrice() {
-        when(priceService.getYdayPrice()).thenReturn(Optional.empty());
-        priceController.getYdayPrice();
-
-        verify(priceService, times(1)).getYdayPrice();
-    }
-
-    @Test
     public void shouldCallGetCurrentPrice() throws IOException {
         when(priceService.getCurrentPrice()).thenReturn(mock(CurrentPrice.class));
         priceController.getCurrentPrice();
@@ -50,11 +41,5 @@ class PriceControllerTest {
     public void shouldCallSaveHistoricalPrices() throws IOException {
         priceController.savePrices();
         verify(priceService, times(1)).saveHistoricalPrices();
-    }
-
-    @Test
-    public void shouldCallSaveYdayPrice() throws IOException {
-        priceController.saveYdayPrice();
-        verify(priceService, times(1)).saveYdayPrice();
     }
 }

@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("digital-gold-prices")
@@ -23,11 +22,6 @@ public class PriceController {
         return priceService.getHistoricalPrices(size);
     }
 
-    @GetMapping("/get-yday-price")
-    public Optional<Price> getYdayPrice() {
-        return priceService.getYdayPrice();
-    }
-
     @GetMapping("/get-current-price")
     public CurrentPrice getCurrentPrice() throws IOException {
         return priceService.getCurrentPrice();
@@ -36,10 +30,5 @@ public class PriceController {
     @PostMapping("/save-historical-prices")
     public void savePrices() throws IOException {
         priceService.saveHistoricalPrices();
-    }
-
-    @PostMapping("/save-yday-price")
-    public void saveYdayPrice() throws IOException {
-        priceService.saveYdayPrice();
     }
 }

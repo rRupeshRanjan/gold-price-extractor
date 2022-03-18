@@ -23,4 +23,4 @@ logging:
 
 price.url: "https://gadgets.ndtv.com/finance/digital-gold-price-in-india"
 date.pattern: "dd MMMM yyyy"
-tax.precentage: 3
+tax.percentage: 3

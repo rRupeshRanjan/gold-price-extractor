@@ -58,7 +58,7 @@ class PriceServiceTest {
 
     @Test
     void shouldGetCurrentPrice() throws IOException {
-        double expectedPrice = 100.0;
+        String expectedPrice = "₹ 5,394.19/g";
         when(priceRepository.getCurrentPrice()).thenReturn(expectedPrice);
         CurrentPrice actualPrice = priceService.getCurrentPrice();
         assertEquals(expectedPrice, actualPrice.getPrice());
@@ -68,13 +68,6 @@ class PriceServiceTest {
     void shouldCallPriceRepositoryToSaveHistoricalPrices() throws IOException {
         priceService.saveHistoricalPrices();
         verify(priceRepository, times(1)).saveHistoricalPrices();
-    }
-
-    @Test
-    void shouldSaveYdayPrice() throws IOException {
-        String previousDate = LocalDate.now().minusDays(1).toString();
-        priceService.saveYdayPrice();
-        verify(priceRepository, times(1)).savePriceByDate(previousDate);
     }
 
     @Test
