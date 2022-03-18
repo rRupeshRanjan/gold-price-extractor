@@ -11,16 +11,16 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.1'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.2'
     implementation 'org.jsoup:jsoup:1.14.3'
-    implementation 'javax.xml.bind:jaxb-api:2.3.0'
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.6.3'
-    implementation 'org.springframework.boot:spring-boot-starter-web:2.6.3'
-    implementation 'org.springframework.boot:spring-boot-starter-webflux:2.6.3'
+    implementation 'javax.xml.bind:jaxb-api:2.4.0-b180830.0359'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.6.4'
+    implementation 'org.springframework.boot:spring-boot-starter-web:2.6.4'
+    implementation 'org.springframework.boot:spring-boot-starter-webflux:2.6.4'
 
     annotationProcessor 'org.projectlombok:lombok:1.18.22'
     compileOnly 'org.projectlombok:lombok:1.18.22'
-    runtimeOnly 'mysql:mysql-connector-java:8.0.25'
+    runtimeOnly 'mysql:mysql-connector-java:8.0.28'
 
     implementation 'org.junit.jupiter:junit-jupiter:5.8.2'
     testImplementation 'org.mockito:mockito-core:4.3.1'
@@ -28,7 +28,7 @@ dependencies {
 
 jacoco {
     toolVersion = "0.8.6"
-    reportsDir = file("$buildDir/jacocoReports")
+    reportsDirectory = file("$buildDir/jacocoReports")
 }
 
 jacocoTestReport {
