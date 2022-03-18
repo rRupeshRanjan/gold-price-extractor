@@ -4,14 +4,12 @@ The historical data is then stored in SQL table, which can be retrieved via rest
 **APIs available:**
 - GET _/digital-gold-prices/get-historical-prices_
   - Fetches historical prices
-- GET _/digital-gold-prices/get-yday-price_
-  - Fetches only previous days prices
 - GET _/digital-gold-prices/get-current-price_
   - Fetches current price
 - POST _/digital-gold-prices/save-historical-prices_
   - Saves last 30 days prices
-- POST _/digital-gold-prices/save-yday-price_
-  - Saves yesterday's prices
+- POST _/pnl/calculatePnl?buyDate=2022-01-01&sellDate=2022-01-31_
+  - calculate pnl between date range in YYYY-MM-DD format
 
 **SQL Schema:**
 ```
