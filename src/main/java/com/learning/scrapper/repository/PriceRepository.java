@@ -76,7 +76,7 @@ public class PriceRepository {
                 .collect(Collectors.toList());
     }
 
-    @CacheEvict(value = "prices")
+    @CacheEvict(value = "prices", allEntries = true)
     public void saveHistoricalPrices() throws IOException {
         log.info("Saving prices for last 30 days");
         sqlRepository.saveAll(getHistoricalPrices());
