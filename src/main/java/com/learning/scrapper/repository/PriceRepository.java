@@ -28,6 +28,8 @@ public class PriceRepository {
     private final DateTimeFormatter dateTimeFormatter;
     private static final String TBODY = "tbody";
     private static final String SPAN = "span";
+    private static final String ELEMENT_SELECTION_CSS_QUERY =  "._gdtpw ._flx";
+    private static final String PRICE_SELECTION_CSS_QUERY =  "._gdprc";
 
     public PriceRepository(AppConfig appConfig, SqlRepository sqlRepository) {
         this.priceUrl = appConfig.getPriceUrl();
@@ -47,23 +49,9 @@ public class PriceRepository {
         log.info("Fetching realtime current price");
 
         Document document = Jsoup.connect(priceUrl).get();
-        Element element = document.select("._gdtpw ._flx").get(0);
-        String currentPrice = element.select("._gdprc").get(0).getElementsByTag(SPAN).get(0).text();
+        Element element = document.select(ELEMENT_SELECTION_CSS_QUERY).get(0);
 
-        return currentPrice;
-    }
-
-    public List<Price> getHistoricalPrices() throws IOException {
-        log.info("Fetching last 30 days prices in realtime");
-
-        return getPriceRows()
-                .stream()
-                .map(row -> row.getElementsByTag("td")
-                        .stream()
-                        .map(data -> data.select("td").text())
-                        .collect(Collectors.toList()))
-                .map(price -> Price.buildPriceFromList(price, dateTimeFormatter))
-                .collect(Collectors.toList());
+        return element.select(PRICE_SELECTION_CSS_QUERY).get(0).getElementsByTag(SPAN).get(0).text();
     }
 
     @Cacheable(value = "prices")
@@ -84,5 +72,18 @@ public class PriceRepository {
 
     public Optional<Price> getSavedPriceByDate(String date) {
         return sqlRepository.getPriceByDate(date);
+    }
+
+    List<Price> getHistoricalPrices() throws IOException {
+        log.info("Fetching last 30 days prices in realtime");
+
+        return getPriceRows()
+                .stream()
+                .map(row -> row.getElementsByTag("td")
+                        .stream()
+                        .map(data -> data.select("td").text())
+                        .collect(Collectors.toList()))
+                .map(price -> Price.buildPriceFromList(price, dateTimeFormatter))
+                .collect(Collectors.toList());
     }
 }
